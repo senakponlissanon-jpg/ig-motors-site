@@ -6,19 +6,23 @@
   const esc = (v) => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const money = (v) => new Intl.NumberFormat('fr-FR').format(Number(v) || 0);
   const cfg = window.IGMOTORS_SUPABASE_CONFIG || {};
-  const setup = $('#setup-needed'), login = $('#login-card'), dashboard = $('#dashboard');
+  const setup = $('#setup-needed'), login = $('#login-card'), resetCard = $('#reset-card'), dashboard = $('#dashboard');
   const show = (el) => el?.classList.remove('adm-hidden');
   const hide = (el) => el?.classList.add('adm-hidden');
   const msg = (el, text, kind='') => { if (!el) return; el.textContent=text; el.className='adm-msg'+(kind?' '+kind:''); show(el); };
-  const loginMsg = $('#login-msg'), dashMsg = $('#dash-msg');
+  const loginMsg = $('#login-msg'), resetMsg = $('#reset-msg'), dashMsg = $('#dash-msg');
   if (!cfg.url || !cfg.anonKey || !window.supabase) { show(setup); return; }
   const db = window.supabase.createClient(cfg.url, cfg.anonKey, {auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
   show(login);
   let user=null, currentId=null, records=[];
 
+  let passwordRecovery=false;
   function setSignedOut(text='') {
-    user=null; hide(dashboard); show(login);
+    user=null; passwordRecovery=false; hide(dashboard); hide(resetCard); show(login);
     if (text) msg(loginMsg,text,'error');
+  }
+  function showPasswordReset() {
+    passwordRecovery=true; hide(login); hide(dashboard); show(resetCard); hide(loginMsg);
   }
   async function verifyAdmin(session) {
     const candidate=session?.user;
@@ -38,9 +42,43 @@
     if(error){msg(loginMsg,'Connexion impossible. Vérifiez l’adresse et le mot de passe, puis réessayez.','error');return;}
     await verifyAdmin(data.session);
   });
+  $('#forgot-password')?.addEventListener('click',async()=>{
+    const email=$('#email').value.trim();
+    if(!email){msg(loginMsg,'Veuillez saisir votre adresse e-mail avant de demander la réinitialisation.','error');$('#email').focus();return;}
+    const button=$('#forgot-password');button.disabled=true;hide(loginMsg);
+    try {
+      const {error}=await db.auth.resetPasswordForEmail(email,{redirectTo:new URL('admin.html',location.href).href});
+      if(error)throw error;
+      msg(loginMsg,'Si cette adresse correspond à un compte, un lien de réinitialisation va être envoyé. Vérifiez aussi les courriers indésirables.','ok');
+    } catch {
+      msg(loginMsg,'Impossible de demander la réinitialisation pour le moment. Vérifiez votre connexion et réessayez plus tard.','error');
+    } finally { button.disabled=false; }
+  });
+  $('#reset-form')?.addEventListener('submit',async e=>{
+    e.preventDefault();const button=e.currentTarget.querySelector('[type=submit]');
+    const password=$('#new-password').value,confirmation=$('#confirm-password').value;
+    if(password.length<8){msg(resetMsg,'Choisis un mot de passe d’au moins 8 caractères.','error');return;}
+    if(password!==confirmation){msg(resetMsg,'Les deux mots de passe ne correspondent pas.','error');return;}
+    button.disabled=true;hide(resetMsg);
+    try {
+      const {error}=await db.auth.updateUser({password});if(error)throw error;
+      passwordRecovery=false;await db.auth.signOut();
+      hide(resetCard);show(login);$('#password').value='';
+      msg(loginMsg,'Mot de passe modifié. Connectez-vous avec votre adresse et votre nouveau mot de passe.','ok');
+    } catch {
+      msg(resetMsg,'Le changement a échoué. Le lien peut avoir expiré : demandez-en un nouveau et réessayez.','error');
+    } finally { button.disabled=false; }
+  });
   $('#logout')?.addEventListener('click',async()=>{await db.auth.signOut();setSignedOut();});
-  db.auth.getSession().then(({data})=>verifyAdmin(data.session));
-  db.auth.onAuthStateChange((_event,session)=>{ if(!session) setSignedOut(); });
+  db.auth.onAuthStateChange((event,session)=>{
+    if(event==='PASSWORD_RECOVERY'){showPasswordReset();return;}
+    if(event==='SIGNED_OUT'&&!passwordRecovery)setSignedOut();
+  });
+  db.auth.getSession().then(({data})=>{
+    const params=new URLSearchParams(location.hash.replace(/^#/,''));
+    if(passwordRecovery||params.get('type')==='recovery'){showPasswordReset();return;}
+    return verifyAdmin(data.session);
+  }).catch(()=>setSignedOut('Impossible de vérifier la session. Recharge la page et réessaie.'));
 
   function renderList(){
     const list=$('#vehicle-list'); $('#vehicle-count').textContent=`(${records.length})`;
