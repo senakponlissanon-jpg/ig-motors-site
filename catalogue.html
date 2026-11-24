@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notre stock de véhicules — IG-MOTORS</title>
+<meta name="description" content="Catalogue de démonstration IG-MOTORS à Godomey. Filtrez les annonces et confirmez le stock, les prix et la disponibilité sur WhatsApp.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23d9a94a'/%3E%3Ctext x='32' y='44' font-family='Arial' font-size='28' font-weight='bold' text-anchor='middle' fill='%231a1305'%3EG%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="catalogue">
+
+<div id="site-header"></div>
+
+<!-- ===================== EN-TÊTE DE PAGE ===================== -->
+<section class="phead">
+  <div class="wrap">
+    <nav class="crumbs">
+      <a href="index.html">Accueil</a>
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 5 7 7-7 7"/></svg>
+      <span>Véhicules</span>
+    </nav>
+    <h1>Notre stock</h1>
+    <p>Modèles recherchés sur demande : Toyota Venza, Corolla, Avensis, Nissan Almera et Lexus toutes catégories. Les offres commencent à <b data-starting-price>1 500 000</b> FCFA selon modèle, état et disponibilité. <b>Version de test : fiches, photos et prix du catalogue doivent être validés ou remplacés avant publication commerciale.</b></p>
+  </div>
+</section>
+
+<!-- ===================== FILTRES ===================== -->
+<div class="filterbar">
+  <div class="wrap filterbar__in">
+    <div class="chips" id="chips"></div>
+    <div class="fsearch">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7.5"/><path d="m20.5 20.5-4.3-4.3"/></svg>
+      <input type="search" id="f-search" placeholder="Rechercher un modèle…">
+    </div>
+    <select class="fselect" id="f-brand" aria-label="Marque"></select>
+    <select class="fselect" id="f-fuel" aria-label="Carburant"></select>
+    <select class="fselect" id="f-max" aria-label="Budget maximum"></select>
+    <select class="fselect" id="f-sort" aria-label="Trier">
+      <option value="featured">Tri : sélection</option>
+      <option value="priceAsc">Prix croissant</option>
+      <option value="priceDesc">Prix décroissant</option>
+      <option value="yearDesc">Année récente</option>
+      <option value="mileage">Kilométrage</option>
+    </select>
+    <button class="chip" id="f-reset">Réinitialiser</button>
+  </div>
+</div>
+
+<!-- ===================== RÉSULTATS ===================== -->
+<section class="section section--tight" style="padding-top:6px">
+  <div class="wrap">
+    <div class="resultbar">
+      <p id="count"></p>
+      <p style="font-size:12px">Prix TTC · négociables · documents fournis</p>
+    </div>
+    <div class="cards" id="grid"></div>
+
+    <div style="margin-top:60px">
+      <div class="cta">
+        <div>
+          <h3>Le véhicule que vous cherchez n'est pas en ligne ?</h3>
+          <p>Nous avons accès à un réseau de vendeurs et d'importateurs. Donnez-nous vos critères, on s'occupe du reste.</p>
+        </div>
+        <div class="cta__act">
+          <a class="btn btn--gold" href="contact.html">Faire une demande</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+<script src="js/data.js"></script>
+<script src="js/supabase-config.js"></script><script src="js/app.js"></script>
+</body>
+</html>

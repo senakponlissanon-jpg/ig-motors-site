@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Factures et contrats — IG-MOTORS</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+:root{--mg-bg:#f3f4f6;--mg-card:#fff;--mg-line:#e1e5eb;--mg-muted:#667085}
+body{background:var(--mg-bg)}
+.mast{background:#0a0e14;color:#fff;padding:17px 24px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:5;border-bottom:1px solid rgba(255,255,255,.1)}
+.mast .brand{color:#fff}.mast__right{margin-left:auto;display:flex;gap:9px;flex-wrap:wrap}
+.gwrap{max-width:1220px;padding:26px 22px 60px;margin:auto}
+.gintro{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:20px}.gintro h1{font-size:clamp(25px,3vw,36px)}.gintro p{color:var(--mg-muted);margin-top:6px}
+.gnav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}.g-navbtn{border:1px solid var(--mg-line);background:white;color:#333;padding:11px 17px;border-radius:999px;font-weight:700;cursor:pointer}.g-navbtn.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.gpanel{background:var(--mg-card);border:1px solid var(--mg-line);border-radius:16px;padding:23px;box-shadow:0 12px 36px rgba(11,19,30,.045)}
+.gpanel h2{font-size:21px;margin-bottom:7px}.gsub{color:var(--mg-muted);font-size:13px;margin-bottom:20px;line-height:1.6}
+.gform{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.gfield{display:grid;gap:6px}.gfield.full{grid-column:1/-1}.gfield label{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#626d7a}.gfield input,.gfield select,.gfield textarea{width:100%;border:1px solid #d7dce3;background:#fff;border-radius:9px;padding:11px 12px;font-size:14px}.gfield textarea{min-height:80px;resize:vertical}.gfield input:focus,.gfield select:focus,.gfield textarea:focus{outline:2px solid color-mix(in srgb,var(--gold),transparent 70%);border-color:var(--gold)}
+.gactions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.gnotice{background:#fff8e8;border:1px solid #f1dfb3;border-radius:10px;padding:12px 14px;color:#735516;font-size:12px;line-height:1.6;margin-top:16px}
+.signrow{display:grid;grid-template-columns:1fr 1fr;gap:16px}.signbox{border:1px solid var(--mg-line);border-radius:12px;padding:12px}.signbox h3{font-size:14px;margin-bottom:8px}.sigcanvas{display:block;width:100%;height:140px;background:#fff;border:1px dashed #aeb5bf;border-radius:8px;touch-action:none}.sigtools{display:flex;justify-content:space-between;align-items:center;margin-top:7px;color:var(--mg-muted);font-size:11px}.sigtools button{border:0;background:transparent;color:#8b2d2d;text-decoration:underline;cursor:pointer}
+.doclist{display:grid;gap:10px}.docitem{display:flex;align-items:center;gap:14px;border:1px solid var(--mg-line);border-radius:12px;padding:14px}.doctype{display:grid;place-items:center;background:#f4eddd;color:#86651e;width:42px;height:42px;border-radius:11px;font-size:11px;font-weight:900}.docmeta{flex:1;min-width:0}.docmeta b{display:block;overflow-wrap:anywhere}.docmeta small{display:block;color:var(--mg-muted);margin-top:3px}.docacts{display:flex;gap:6px;flex-wrap:wrap}.docacts button{border:1px solid var(--mg-line);border-radius:8px;background:#fff;padding:7px 10px;cursor:pointer;font-size:12px;font-weight:700}.empty{color:var(--mg-muted);padding:24px;text-align:center;border:1px dashed var(--mg-line);border-radius:12px}
+.configgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.gfoot{margin-top:16px;color:var(--mg-muted);font-size:11px;line-height:1.6}
+@media(max-width:720px){.gwrap{padding:18px 14px 40px}.mast{padding:12px 14px;flex-wrap:wrap}.mast .brand{min-width:0;flex:1}.mast .brand__txt{font-size:14px}.mast__right{margin-left:0;width:100%;display:flex}.mast__right .btn{min-width:0;flex:1;text-align:center;white-space:nowrap;font-size:10px;padding:8px 5px}.gintro{display:block}.gform,.configgrid,.signrow{grid-template-columns:1fr}.docitem{align-items:flex-start}.docacts{width:100%}.docitem{flex-wrap:wrap}}
+@media print{.mast,.gwrap{display:none}}
+</style>
+</head>
+<body>
+<header class="mast">
+  <a class="brand" href="index.html"><span class="brand__mark">IG</span><span class="brand__txt">IG-MOTORS<small>Gestion commerciale</small></span></a>
+  <div class="mast__right"><a class="btn btn--ghost btn--sm" href="admin.html">Administration du stock</a><a class="btn btn--gold btn--sm" href="index.html">Voir le site</a></div>
+</header>
+<main class="gwrap">
+  <div class="gintro"><div><h1>Factures & contrats</h1><p>Documents automatiques pour LISSANON Igor · IG-MOTORS</p></div></div>
+  <nav class="gnav" id="gestion-tabs">
+    <button class="g-navbtn on" data-view="invoice">Nouvelle facture</button>
+    <button class="g-navbtn" data-view="contract">Contrat de location</button>
+    <button class="g-navbtn" data-view="archive">Archives</button>
+    <button class="g-navbtn" data-view="settings">Paramètres facture</button>
+  </nav>
+
+  <section class="gpanel" id="view-invoice">
+    <h2>Créer une facture</h2><p class="gsub">Le numéro est attribué automatiquement sur cet appareil. Le document peut être imprimé ou enregistré en PDF.</p>
+    <form id="invoice-form" class="gform">
+      <div class="gfield"><label for="inv-date">Date</label><input id="inv-date" name="date" type="date" required></div>
+      <div class="gfield"><label for="inv-kind">Nature</label><select id="inv-kind" name="kind"><option>Vente de véhicule</option><option>Location de véhicule</option><option>Service / autre</option></select></div>
+      <div class="gfield"><label for="inv-client">Nom du client *</label><input id="inv-client" name="client" required></div>
+      <div class="gfield"><label for="inv-phone">Téléphone du client</label><input id="inv-phone" name="phone" type="tel"></div>
+      <div class="gfield"><label for="inv-email">Email du client</label><input id="inv-email" name="email" type="email"></div>
+      <div class="gfield"><label for="inv-vehicle">Véhicule / objet</label><input id="inv-vehicle" name="vehicle" placeholder="Marque, modèle, immatriculation"></div>
+      <div class="gfield full"><label for="inv-desc">Désignation / description</label><textarea id="inv-desc" name="description" placeholder="Détail de la vente, location ou prestation"></textarea></div>
+      <div class="gfield"><label for="inv-total">Montant total (FCFA) *</label><input id="inv-total" name="total" type="number" min="0" step="1" required></div>
+      <div class="gfield"><label for="inv-paid">Montant déjà payé (FCFA)</label><input id="inv-paid" name="paid" type="number" min="0" step="1" value="0"></div>
+      <div class="gfield"><label for="inv-method">Mode de paiement</label><select id="inv-method" name="method"><option>Espèces</option><option>Virement bancaire</option><option>Mobile Money</option><option>Chèque</option><option>Autre</option></select></div>
+      <div class="gfield"><label for="inv-due">Échéance / remarque paiement</label><input id="inv-due" name="due" placeholder="À réception / date convenue"></div>
+    </form>
+    <div class="gactions"><button class="btn btn--gold" id="make-invoice">Enregistrer et générer la facture</button><button class="btn btn--line" type="reset" form="invoice-form">Effacer le formulaire</button></div>
+    <div class="gnotice">Les factures sont archivées dans le stockage local de ce navigateur. Ajoutez les identifiants légaux de l’entreprise (IFU, RCCM, adresse exacte) dans « Paramètres facture » avant d’émettre des documents officiels. Vérifiez les mentions fiscales applicables au Bénin avec votre comptable.</div>
+  </section>
+
+  <section class="gpanel" id="view-contract" hidden>
+    <h2>Contrat de location de véhicule</h2><p class="gsub">Complétez les informations, choisissez l’occasion et faites signer les deux parties à l’écran. Les signatures sont intégrées au document imprimable.</p>
+    <form id="contract-form" class="gform">
+      <div class="gfield"><label for="ct-occasion">Occasion *</label><select id="ct-occasion" name="occasion"><option>Anniversaire</option><option>Mariage</option><option>Baptême</option><option>Première communion</option><option>Baptême et première communion</option><option>Autre événement</option></select></div>
+      <div class="gfield"><label for="ct-purpose">Précision / autre occasion</label><input id="ct-purpose" name="purpose" placeholder="Ex. cérémonie familiale"></div>
+      <div class="gfield"><label for="ct-client">Nom complet du locataire *</label><input id="ct-client" name="client" required></div>
+      <div class="gfield"><label for="ct-phone">Téléphone *</label><input id="ct-phone" name="phone" type="tel" required></div>
+      <div class="gfield"><label for="ct-id">Pièce d’identité / numéro</label><input id="ct-id" name="identity" placeholder="À vérifier lors de la remise des clés"></div>
+      <div class="gfield"><label for="ct-address">Adresse du locataire</label><input id="ct-address" name="address"></div>
+      <div class="gfield"><label for="ct-vehicle">Véhicule loué *</label><input id="ct-vehicle" name="vehicle" placeholder="Marque, modèle, année" required></div>
+      <div class="gfield"><label for="ct-plate">Immatriculation</label><input id="ct-plate" name="plate"></div>
+      <div class="gfield"><label for="ct-start">Début de location *</label><input id="ct-start" name="start" type="datetime-local" required></div>
+      <div class="gfield"><label for="ct-end">Fin de location *</label><input id="ct-end" name="end" type="datetime-local" required></div>
+      <div class="gfield"><label for="ct-place">Lieu / zone d’utilisation</label><input id="ct-place" name="place" placeholder="Cotonou, trajet ou zone convenue"></div>
+      <div class="gfield"><label for="ct-km">Kilométrage au départ</label><input id="ct-km" name="mileage" type="number" min="0"></div>
+      <div class="gfield"><label for="ct-price">Prix de location (FCFA) *</label><input id="ct-price" name="price" type="number" min="0" required></div>
+      <div class="gfield"><label for="ct-deposit">Caution / dépôt (FCFA)</label><input id="ct-deposit" name="deposit" type="number" min="0" value="0"></div>
+      <div class="gfield full"><label for="ct-terms">Conditions particulières</label><textarea id="ct-terms" name="terms" placeholder="Carburant, chauffeur, assurance, retard, état des lieux…"></textarea></div>
+    </form>
+    <div class="signrow" style="margin-top:18px">
+      <div class="signbox"><h3>Signature du propriétaire / représentant IG-MOTORS</h3><canvas class="sigcanvas" id="sig-owner" aria-label="Signature du propriétaire"></canvas><div class="sigtools"><span>Tracer la signature au doigt ou à la souris</span><button type="button" data-clear="sig-owner">Effacer</button></div></div>
+      <div class="signbox"><h3>Signature du locataire</h3><canvas class="sigcanvas" id="sig-client" aria-label="Signature du locataire"></canvas><div class="sigtools"><span>Tracer la signature au doigt ou à la souris</span><button type="button" data-clear="sig-client">Effacer</button></div></div>
+    </div>
+    <div class="gactions"><button class="btn btn--gold" id="make-contract">Enregistrer le contrat signé</button><button class="btn btn--line" type="reset" form="contract-form">Effacer le formulaire</button></div>
+    <div class="gnotice"><b>À noter :</b> la signature dessinée est une signature électronique simple, stockée dans ce navigateur. Elle n’est pas une signature électronique qualifiée ni un service de certification d’identité. Faites vérifier les clauses et la valeur juridique du contrat par un professionnel au Bénin avant usage. Ajoutez les clauses d’assurance, responsabilité, état des lieux et retard adaptées à votre activité.</div>
+  </section>
+
+  <section class="gpanel" id="view-archive" hidden>
+    <h2>Archives locales</h2><p class="gsub">Consultez, imprimez à nouveau ou supprimez les documents enregistrés sur cet appareil.</p>
+    <div class="gactions" style="margin:0 0 16px"><button class="btn btn--line" id="export-archive">Télécharger une sauvegarde JSON</button><label class="btn btn--line" for="import-archive" style="cursor:pointer">Restaurer une sauvegarde</label><input id="import-archive" type="file" accept="application/json" hidden></div>
+    <div id="archive-list" class="doclist"></div>
+  </section>
+
+  <section class="gpanel" id="view-settings" hidden>
+    <h2>Informations vendeur sur les documents</h2><p class="gsub">Ces coordonnées et identifiants apparaissent sur les nouvelles factures et contrats. Les champs peuvent rester vides jusqu’à confirmation.</p>
+    <form id="business-form" class="configgrid">
+      <div class="gfield"><label>Entreprise</label><input name="name"></div><div class="gfield"><label>Propriétaire</label><input name="owner"></div>
+      <div class="gfield"><label>Téléphone principal</label><input name="phone"></div><div class="gfield"><label>Téléphone secondaire</label><input name="phone2"></div>
+      <div class="gfield"><label>Adresse complète</label><input name="address"></div><div class="gfield"><label>Email</label><input name="email"></div>
+      <div class="gfield"><label>IFU / identifiant fiscal</label><input name="ifu" placeholder="À renseigner"></div><div class="gfield"><label>RCCM / registre</label><input name="rccm" placeholder="À renseigner"></div>
+      <div class="gfield"><label>Banque / paiement (facultatif)</label><input name="paymentDetails" placeholder="Coordonnées à communiquer au client"></div>
+    </form>
+    <div class="gactions"><button class="btn btn--gold" id="save-business">Enregistrer les informations</button></div>
+    <p class="gfoot">Les archives restent locales à cet appareil, ne sont pas synchronisées et ne sont pas chiffrées. La connexion administrateur limite l’accès à l’interface, mais ne chiffre pas les données du navigateur. N’y conservez pas de documents sensibles ; exportez toute sauvegarde dans un emplacement sûr.</p>
+  </section>
+</main>
+<script src="js/data.js"></script><script src="js/gestion.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="js/supabase-config.js"></script><script src="js/gestion-guard.js"></script>
+</body></html>

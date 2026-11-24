@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IG-MOTORS — Revendeur de véhicules toutes marques à Godomey</title>
+<meta name="description" content="IG-MOTORS à Godomey près du CEG Godomey : annonces multimarques, recherche de véhicules et propositions de reprise par WhatsApp.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23d9a94a'/%3E%3Ctext x='32' y='44' font-family='Arial' font-size='28' font-weight='bold' text-anchor='middle' fill='%231a1305'%3EG%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="home">
+
+<!-- ===================== HEADER (injecté par js/app.js) ===================== -->
+<div id="site-header"></div>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="hero__bg" style="background-image:url('assets/img/hero.jpg')"></div>
+  <div class="hero__veil"></div>
+
+  <div class="wrap hero__inner">
+    <span class="hero__eyebrow"><i></i> Concessionnaire &amp; revendeur · Godomey, près du CEG Godomey, Bénin</span>
+
+    <h1>Le véhicule qu'il vous faut, <em>au prix qu'il faut.</em></h1>
+
+    <p class="hero__sub">
+      SUV, berlines, 4x4 et pick-ups, toutes marques et tous budgets.
+      Toyota Venza, Corolla, Avensis, Nissan Almera et Lexus toutes catégories, selon disponibilité.
+    </p>
+    <p class="hero__sub" style="margin-top:8px;font-size:14px">Des offres à partir de <b data-starting-price>1 500 000</b> FCFA, selon le modèle, l’état et la disponibilité.</p>
+
+    <div class="hero__cta">
+      <a class="btn btn--gold btn--lg" href="catalogue.html">Explorer le stock</a>
+      <a class="btn btn--ghost btn--lg" href="vendre.html">Vendre mon véhicule</a>
+    </div>
+
+    <!-- Recherche rapide -->
+    <form class="searchbar" id="quicksearch">
+      <div class="sb-field">
+        <label for="qs-type">Type de véhicule</label>
+        <select name="type" id="qs-type">
+          <option value="">Tous types</option>
+          <option>SUV</option>
+          <option>Berline</option>
+          <option>Pick-up</option>
+          <option>4x4</option>
+        </select>
+      </div>
+      <div class="sb-field">
+        <label for="qs-brand">Marque ou modèle</label>
+        <select name="brand" id="qs-brand"><option value="">Toutes les marques / modèles</option></select>
+      </div>
+      <div class="sb-field">
+        <label for="qs-max">Budget · dès 1,5 M FCFA</label>
+        <select name="budget" id="qs-max">
+          <option value="">Tous budgets · dès 1,5 M</option>
+          <option value="5000000" data-min="1500000">1,5 à 5 M FCFA</option>
+          <option value="10000000" data-min="5000000">5 à 10 M FCFA</option>
+          <option value="15000000" data-min="10000000">10 à 15 M FCFA</option>
+          <option value="25000000" data-min="15000000">15 à 25 M FCFA</option>
+          <option value="40000000" data-min="25000000">25 à 40 M FCFA</option>
+          <option value="60000000" data-min="40000000">40 à 60 M FCFA</option>
+          <option value="60000000+" data-min="60000000">60 M FCFA et plus</option>
+        </select>
+      </div>
+      <button class="btn btn--gold" type="submit">Rechercher</button>
+    </form>
+  </div>
+
+  <div class="hero__foot">
+    <div class="wrap">
+      <div class="stats" id="stats"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MARQUES ===================== -->
+<div class="marquee" aria-hidden="true">
+  <div id="marquee"></div>
+</div>
+
+<!-- ===================== ENGAGEMENTS ===================== -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Nos engagements</span>
+        <h2 class="h2">Votre projet automobile,<br>à Godomey.</h2>
+      </div>
+      <p class="lead">
+        Parcourez les annonces, demandez un modèle sur mesure ou proposez votre véhicule à la reprise.
+        Les détails de chaque transaction sont à confirmer avec IG-MOTORS.
+      </p>
+    </div>
+    <div class="feats" id="feats"></div>
+  </div>
+</section>
+
+<!-- ===================== SÉLECTION ===================== -->
+<section class="section section--tight">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Notre sélection</span>
+        <h2 class="h2">Véhicules présentés</h2>
+      </div>
+      <a class="link-arrow" href="catalogue.html">Voir le catalogue
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+    <p class="lead" style="margin:-12px 0 20px;font-size:13px">Version de démonstration : véhicules, photos et prix affichés à confirmer ou remplacer par le stock réel avant lancement commercial.</p>
+    <div class="cards" id="featured"></div>
+  </div>
+</section>
+
+<!-- ===================== REPRISE ===================== -->
+<section class="section dark">
+  <div class="wrap">
+    <div class="split">
+      <div class="split__media split__media--tall">
+        <img src="assets/img/showroom.jpg" alt="Showroom IG-MOTORS">
+        <div class="floatcard">
+          <b>IG</b>
+          <span>Évaluation sur demande</span>
+        </div>
+      </div>
+      <div class="split__body">
+        <span class="eyebrow">Reprise &amp; achat</span>
+        <h2>Vous vendez ? Nous rachetons.</h2>
+        <p class="lead">
+          Proposez votre véhicule, indiquez son état et le prix souhaité. Une estimation initiale pourra être discutée après examen des informations, puis confirmée lors d’une inspection.
+        </p>
+        <ul class="checklist">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Demande d’estimation</b> — décrivez la voiture et joignez des photos via WhatsApp ou le partage de fichiers.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Offre après inspection</b> — les modalités et délais sont discutés avec le propriétaire.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Vente ou reprise</b> — contactez-nous pour discuter de votre projet.</span></li>
+        </ul>
+        <a class="btn btn--gold btn--lg" href="vendre.html">Proposer mon véhicule à IG-MOTORS</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TYPES ===================== -->
+<section class="section dark" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Tous les types</span>
+        <h2 class="h2">Quel véhicule cherchez-vous ?</h2>
+      </div>
+      <p class="lead">Du pick-up de travail au 4x4 de prestige, notre stock couvre tous les usages.</p>
+    </div>
+    <div class="types" id="types"></div>
+  </div>
+</section>
+
+<!-- ===================== RECHERCHE SUR DEMANDE ===================== -->
+<section class="section dark" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Recherche multimarque</span>
+        <h2 class="h2">Un modèle précis en tête ?</h2>
+      </div>
+      <p class="lead">Toyota Venza, Nissan Almera, Corolla, Avensis et Lexus toutes catégories : demandez les disponibilités et les prix actuels.</p>
+    </div>
+    <a class="btn btn--gold" href="https://wa.me/2290167648684" target="_blank" rel="noopener">Demander sur WhatsApp</a>
+  </div>
+</section>
+
+<!-- ===================== CTA ===================== -->
+<section class="section">
+  <div class="wrap">
+    <div class="cta">
+      <div>
+        <h3>Un véhicule en tête ? Nous le trouvons pour vous.</h3>
+        <p>Dites-nous le modèle et le budget recherchés ; nous confirmerons les disponibilités au cas par cas.</p>
+      </div>
+      <div class="cta__act">
+        <a class="btn btn--gold" href="https://wa.me/2290167648684" target="_blank" rel="noopener">Nous écrire sur WhatsApp</a>
+        <a class="btn btn--ghost" href="catalogue.html">Parcourir le stock</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER (injecté) ===================== -->
+<div id="site-footer"></div>
+
+<script src="js/data.js"></script>
+<script src="js/supabase-config.js"></script><script src="js/app.js"></script>
+</body>
+</html>

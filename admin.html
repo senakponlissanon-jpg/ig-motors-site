@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Administration — IG-MOTORS</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    body{background:#f4f5f7;color:#171b22}.adm-wrap{max-width:1120px;margin:0 auto;padding:26px 18px 60px}
+    .adm-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:10px 0 24px}.adm-head h1{font-size:clamp(22px,4vw,34px);margin:0}
+    .adm-card{background:#fff;border:1px solid #e3e5e9;border-radius:16px;padding:22px;box-shadow:0 8px 30px #15202b0c}
+    .adm-login{max-width:440px;margin:7vh auto}.adm-login h1{margin:0 0 8px}.adm-muted{color:#687080;font-size:14px;line-height:1.6}
+    .adm-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.adm-field{display:grid;gap:6px}.adm-field.full{grid-column:1/-1}.adm-field label{font-size:12px;font-weight:700;color:#555d6b}
+    .adm-field input,.adm-field select,.adm-field textarea{width:100%;border:1px solid #d8dbe1;border-radius:9px;padding:10px 12px;background:#fff;color:#171b22;font:inherit}.adm-field textarea{min-height:90px;resize:vertical}
+    .adm-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.adm-toolbar{display:flex;gap:12px;align-items:center;justify-content:space-between;margin:12px 0 18px;flex-wrap:wrap}
+    .adm-grid{display:grid;grid-template-columns:330px minmax(0,1fr);gap:18px}.adm-list{display:grid;gap:8px;max-height:70vh;overflow:auto}.adm-row{display:flex;gap:10px;align-items:center;width:100%;text-align:left;border:1px solid #e5e6ea;background:#fff;border-radius:10px;padding:9px;cursor:pointer}.adm-row:hover,.adm-row.active{border-color:#c99a3f;background:#fffbf2}.adm-row img{width:62px;height:48px;object-fit:cover;border-radius:7px;background:#eee}.adm-row b{display:block;font-size:13px}.adm-row small{color:#737b89}.adm-status{margin-left:auto;white-space:nowrap;font-size:11px;padding:4px 7px;border-radius:99px;background:#f1f2f4}
+    .adm-msg{padding:11px 13px;border-radius:9px;margin:12px 0;background:#eef5ff;color:#1d4d7a;font-size:13px;line-height:1.5}.adm-msg.error{background:#fff0ef;color:#a32920}.adm-msg.ok{background:#edf8f0;color:#27683b}
+    .adm-hidden{display:none!important}.adm-topline{border-bottom:1px solid #e2e4e8;background:#fff}.adm-topline>div{max-width:1120px;margin:auto;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+    @media(max-width:800px){.adm-grid{grid-template-columns:1fr}.adm-list{max-height:260px}.adm-card{padding:16px}}
+    @media(max-width:520px){.adm-form{grid-template-columns:1fr}.adm-field.full{grid-column:auto}.adm-head{align-items:flex-start;flex-direction:column}.adm-topline>div{align-items:flex-start;flex-direction:column}}
+  </style>
+</head>
+<body>
+  <div class="adm-topline"><div><a href="index.html" class="brand"><span class="brand__mark">IG</span><span class="brand__txt">IG-MOTORS<small>Administration sécurisée</small></span></a><a href="index.html">Retour au site</a></div></div>
+  <main class="adm-wrap">
+    <section id="setup-needed" class="adm-card adm-login adm-hidden">
+      <h1>Administration à configurer</h1><p class="adm-muted">Le tableau de bord sera activé après création du projet Supabase, exécution du schéma SQL et ajout de son URL et de sa clé publique dans <code>js/supabase-config.js</code>. Aucun mot de passe ni clé secrète ne doit être ajouté au site.</p>
+      <p><a href="SUPABASE_SETUP.md">Ouvrir le guide de configuration</a></p>
+    </section>
+    <section id="login-card" class="adm-card adm-login adm-hidden">
+      <h1>Connexion administrateur</h1><p class="adm-muted">Accès réservé aux comptes autorisés par le propriétaire.</p>
+      <form id="login-form" class="adm-form" style="grid-template-columns:1fr">
+        <div class="adm-field"><label for="email">Adresse e-mail</label><input id="email" type="email" autocomplete="username" required></div>
+        <div class="adm-field"><label for="password">Mot de passe</label><input id="password" type="password" autocomplete="current-password" required></div>
+        <button class="btn btn--gold" type="submit">Se connecter</button>
+      </form><div id="login-msg" class="adm-msg adm-hidden" role="status"></div>
+    </section>
+    <section id="dashboard" class="adm-hidden">
+      <header class="adm-head"><div><h1>Gestion des annonces</h1><p class="adm-muted">Les annonces publiées sont partagées avec le catalogue du site en temps réel.</p></div><div class="adm-actions"><span id="user-email" class="adm-muted"></span><button id="logout" class="btn btn--line btn--sm">Déconnexion</button></div></header>
+      <div id="dash-msg" class="adm-msg adm-hidden" role="status"></div>
+      <div class="adm-grid">
+        <aside class="adm-card"><div class="adm-toolbar"><b>Véhicules <span id="vehicle-count"></span></b><button id="new-vehicle" class="btn btn--gold btn--sm">+ Ajouter</button></div><div id="vehicle-list" class="adm-list"></div></aside>
+        <section class="adm-card"><div class="adm-toolbar"><h2 id="editor-title" style="margin:0;font-size:20px">Choisir ou créer une annonce</h2><div class="adm-actions"><button id="delete-vehicle" class="btn btn--line btn--sm adm-hidden" type="button">Supprimer</button><button id="cancel-edit" class="btn btn--line btn--sm adm-hidden" type="button">Annuler</button></div></div>
+          <form id="vehicle-form" class="adm-form adm-hidden">
+            <div class="adm-field"><label>Marque *</label><input name="brand" required></div><div class="adm-field"><label>Modèle *</label><input name="model" required></div>
+            <div class="adm-field full"><label>Version / finition</label><input name="version"></div>
+            <div class="adm-field"><label>Année *</label><input name="year" type="number" min="1900" max="2100" required></div>
+            <div class="adm-field"><label>Type</label><select name="type"><option>SUV</option><option>Berline</option><option>Pick-up</option><option>4x4</option><option>Utilitaire</option></select></div>
+            <div class="adm-field"><label>Carburant</label><select name="fuel"><option>Essence</option><option>Diesel</option><option>Hybride</option><option>Électrique</option></select></div>
+            <div class="adm-field"><label>Boîte</label><select name="gearbox"><option>Automatique</option><option>Manuelle</option><option>CVT</option></select></div>
+            <div class="adm-field"><label>Kilométrage</label><input name="mileage" placeholder="ex. 45 000 km"></div><div class="adm-field"><label>Puissance</label><input name="power" placeholder="ex. 150 ch"></div>
+            <div class="adm-field"><label>Places</label><input name="seats" type="number" min="1" max="100" value="5"></div><div class="adm-field"><label>Couleur</label><input name="color"></div>
+            <div class="adm-field"><label>Prix (FCFA) *</label><input name="price" type="number" min="0" step="1" required></div>
+            <div class="adm-field"><label>Badge</label><select name="badge"><option value="">Aucun</option><option>Nouveauté</option><option>Coup de cœur</option><option>Bon plan</option><option>Petit budget</option></select></div>
+            <div class="adm-field"><label>État de l’annonce</label><select name="status"><option value="disponible">Disponible</option><option value="reserve">Réservé</option><option value="vendu">Vendu</option></select></div>
+            <div class="adm-field"><label>Image principale (URL)</label><input name="image" placeholder="https://…"></div>
+            <div class="adm-field"><label>Envoyer une photo</label><input id="photo-file" type="file" accept="image/jpeg,image/png,image/webp"><small class="adm-muted">JPG, PNG ou WebP · maximum 5 Mo.</small></div>
+            <div class="adm-field"><label><input name="featured" type="checkbox"> Mettre en avant sur l’accueil</label></div><div class="adm-field"><label><input name="published" type="checkbox"> Publier sur le site</label></div>
+            <div class="adm-field full"><label>Description</label><textarea name="description"></textarea></div><div class="adm-field full"><label>Équipements (un par ligne)</label><textarea name="features" placeholder="Climatisation&#10;Caméra de recul"></textarea></div>
+            <div class="adm-field full adm-actions"><button class="btn btn--gold" type="submit">Enregistrer l’annonce</button><span class="adm-muted">Une annonce brouillon n’est visible que dans l’administration.</span></div>
+          </form>
+          <div id="editor-empty" class="adm-muted">Créez une annonce puis choisissez explicitement si elle doit être publiée. Les annonces de démonstration ne sont pas importées automatiquement.</div>
+        </section>
+      </div>
+    </section>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script><script src="js/admin.js"></script>
+</body></html>
