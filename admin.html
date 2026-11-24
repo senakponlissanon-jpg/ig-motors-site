@@ -33,7 +33,17 @@
         <div class="adm-field"><label for="email">Adresse e-mail</label><input id="email" type="email" autocomplete="username" required></div>
         <div class="adm-field"><label for="password">Mot de passe</label><input id="password" type="password" autocomplete="current-password" required></div>
         <button class="btn btn--gold" type="submit">Se connecter</button>
-      </form><div id="login-msg" class="adm-msg adm-hidden" role="status"></div>
+      </form>
+      <p style="margin:14px 0 0"><button id="forgot-password" class="btn btn--line btn--sm" type="button">Mot de passe oublié ?</button></p>
+      <div id="login-msg" class="adm-msg adm-hidden" role="status"></div>
+    </section>
+    <section id="reset-card" class="adm-card adm-login adm-hidden">
+      <h1>Choisir un nouveau mot de passe</h1><p class="adm-muted">Utilise le lien reçu par e-mail, puis définis un mot de passe personnel.</p>
+      <form id="reset-form" class="adm-form" style="grid-template-columns:1fr">
+        <div class="adm-field"><label for="new-password">Nouveau mot de passe</label><input id="new-password" type="password" autocomplete="new-password" minlength="8" required></div>
+        <div class="adm-field"><label for="confirm-password">Confirmer le mot de passe</label><input id="confirm-password" type="password" autocomplete="new-password" minlength="8" required></div>
+        <button class="btn btn--gold" type="submit">Enregistrer le nouveau mot de passe</button>
+      </form><div id="reset-msg" class="adm-msg adm-hidden" role="status"></div>
     </section>
     <section id="dashboard" class="adm-hidden">
       <header class="adm-head"><div><h1>Gestion des annonces</h1><p class="adm-muted">Les annonces publiées sont partagées avec le catalogue du site en temps réel.</p></div><div class="adm-actions"><span id="user-email" class="adm-muted"></span><button id="logout" class="btn btn--line btn--sm">Déconnexion</button></div></header>
